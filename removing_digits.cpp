@@ -26,58 +26,32 @@ typedef map<ll, ll> mll;
 ll MOD = 1e9 + 7;
 int p = 31;
 
-ll maxim(ll a, ll b, ll c)
-{
-    ll max_val = max(a, b);
-    return max(max_val, c);
-}
-
-ll minim(ll a, ll b, ll c)
-{
-    ll min_val = min(a, b);
-    return min(min_val, c);
-}
-
 int main()
 {
     amazing;
-    // ll t = 1;
-    // cin >> t;
-    // while (t--)
-    // {
-    // }
     ll n;
     cin >> n;
-    ll temp = n;
-    vl digits;
-    ll dp[n + 1];
-    fo(i, n + 1)
-    {
-        dp[i] = MOD;
-    }
+    vl dp(n + 1, MOD);
     dp[0] = 0;
-    while (temp > 0)
+    ll temp = n;
+    Fo(i, 1, n + 1)
     {
-        ll dig = temp % 10;
-        digits.push_back(dig);
-        dp[dig] = 1;
-        temp = temp / 10;
-    }
-    fo(i, n + 1)
-    {
-        ll minimum = MOD;
+        vl digits;
+        ll temp = i;
+        while (temp)
+        {
+            digits.pb(temp % 10);
+            temp /= 10;
+        }
         fo(j, digits.size())
         {
             if (i >= digits[j] && dp[i - digits[j]] != MOD)
             {
-                minimum = min(minimum, dp[i - digits[j]] + 1);
+                dp[i] = min(dp[i], dp[i - digits[j]] + 1);
             }
         }
     }
-    fo(i, n + 1)
-    {
-        cout << dp[i] << " ";
-    }
+    cout << dp[n] << endl;
     br;
     return 0;
 }

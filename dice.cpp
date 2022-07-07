@@ -29,49 +29,26 @@ int p = 31;
 int main()
 {
     amazing;
-
     ll n;
     cin >> n;
-    ll res[n + 1];
-    fo(i, n + 1)
+    vl ways(n + 1, 0);
+    ways[0] = 1;
+    ways[1] = 1;
+    ways[2] = 2;
+    Fo(i, 3, n + 1)
     {
-        res[i] = 0;
-    }
-    res[0] = 1;
-    res[1] = 1;
-    res[2] = 2;
-    bool check[n + 1];
-    fo(i, n + 1)
-    {
-        check[i] = false;
-    }
-    check[0] = true;
-    check[1] = true;
-    check[2] = true;
-    fo(i, n + 1)
-    {
-        if (check[i] == true)
+        if (i <= 6)
         {
-            continue;
+            ways[i] += 1;
         }
-        if (i > 6)
+        Fo(j, 1, 7)
         {
-            fo(j, 6)
-            {
-                res[i] += res[i - j - 1] % m;
-            }
-            check[i] = true;
-        }
-        else
-        {
-            fo(j, i)
-            {
-                res[i] += res[j] % m;
-            }
-            check[i] = true;
+            if (i > j)
+                ways[i] += ways[i - j] % m;
+            else
+                break;
         }
     }
-    cout << res[n] % m;
-    br;
+    cout << ways[n] % m << endl;
     return 0;
 }

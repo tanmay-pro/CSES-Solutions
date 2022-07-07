@@ -23,14 +23,13 @@ typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef map<int, int> mii;
 typedef map<ll, ll> mll;
-int m = 1e9 + 7;
+const int m = 1e9 + 7;
 int p = 31;
 
-ll ans[1000001];
+ll dp[1000001];
 
 int main()
 {
-    amazing;
     int n, x;
     cin >> n >> x;
     vi coins(n);
@@ -38,19 +37,19 @@ int main()
     {
         cin >> coins[i];
     }
-    ans[0] = 1;
-    for (int weight = 0; weight <= x; weight++)
+    dp[0] = 1;
+    fo(i, x + 1)
     {
-        for (int i = 1; i <= n; i++)
+        fo(j, n)
         {
-            if (weight - coins[i - 1] >= 0)
+            if (i >= coins[j])
             {
-                ans[weight] += ans[weight - coins[i - 1]];
-                ans[weight] %= m;
+                dp[i] += dp[i - coins[j]];
+                dp[i] %= m;
             }
         }
     }
-    cout << ans[x];
+    cout << dp[x] % m;
     br;
     return 0;
 }

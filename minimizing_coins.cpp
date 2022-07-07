@@ -31,38 +31,26 @@ int main()
     amazing;
     ll n, x;
     cin >> n >> x;
-    vl c;
+    vl values(n);
+    vl dp(x + 1, m);
+    dp[0] = 0;
     fo(i, n)
     {
-        ll a;
-        cin >> a;
-        c.push_back(a);
+        cin >> values[i];
     }
-    ll res[x + 1];
-    bool check[x + 1];
     fo(i, x + 1)
     {
-        check[i] = false;
-        res[i] = m;
-    }
-    res[0] = 0;
-    check[0] = true;
-    Fo(i, 1, x + 1)
-    {
-        for (auto coins : c)
+        fo(j, values.size())
         {
-            if (i - coins >= 0)
+            if (i - values[j] >= 0)
             {
-                res[i] = min(res[i], res[i - coins] + 1);
+                dp[i] = min(dp[i], dp[i - values[j]] + 1);
             }
         }
     }
-    if (res[x] != m)
-        cout << res[x];
+    if(dp[x] != m)
+        cout << dp[x] << endl;
     else
-    {
-        cout << -1;
-    }
-    br;
+        cout << -1 << endl;
     return 0;
 }
